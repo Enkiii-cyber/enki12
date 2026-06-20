@@ -1,36 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Enkii Cyber</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENKII CYBER</title>
+
 <style>
-body{
-background:black;
-color:white;
-text-align:center;
-font-family:Arial;
-margin-top:50px;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-img{
-width:200px;
-border-radius:50%;
-box-shadow:0 0 20px white;
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:url('bg.jpg');
+background-size:cover;
+background-position:center;
+font-family:Arial,sans-serif;
+overflow:hidden;
+color:white;
 }
+
+.overlay{
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+}
+
+.card{
+position:relative;
+z-index:2;
+text-align:center;
+padding:25px;
+border-radius:20px;
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(5px);
+animation:glitch .25s infinite;
+}
+
+.profile{
+width:180px;
+height:180px;
+object-fit:cover;
+border-radius:50%;
+border:3px solid #bc13fe;
+box-shadow:
+0 0 10px #bc13fe,
+0 0 20px #bc13fe,
+0 0 40px #bc13fe;
+}
+
+h1{
+margin-top:15px;
+font-size:35px;
+color:#bc13fe;
+text-shadow:
+0 0 5px #bc13fe,
+0 0 10px #bc13fe,
+0 0 20px #bc13fe,
+0 0 40px #bc13fe,
+0 0 80px #bc13fe;
+animation:neon 1.5s infinite alternate;
+}
+
+.typing{
+margin-top:10px;
+height:30px;
+font-size:18px;
+color:#bc13fe;
+text-shadow:
+0 0 5px #bc13fe,
+0 0 10px #bc13fe,
+0 0 20px #bc13fe,
+0 0 40px #bc13fe;
+}
+
+#playmsg{
+margin-top:15px;
+font-size:14px;
+opacity:.8;
+}
+
+@keyframes glitch{
+0%{transform:translate(0);}
+25%{transform:translate(2px,-2px);}
+50%{transform:translate(-2px,2px);}
+75%{transform:translate(2px,2px);}
+100%{transform:translate(0);}
+}
+
+@keyframes neon{
+from{
+text-shadow:
+0 0 5px #bc13fe,
+0 0 10px #bc13fe,
+0 0 20px #bc13fe,
+0 0 40px #bc13fe;
+}
+to{
+text-shadow:
+0 0 10px #bc13fe,
+0 0 20px #bc13fe,
+0 0 40px #bc13fe,
+0 0 80px #bc13fe,
+0 0 120px #bc13fe;
+}
+}
+
 </style>
 </head>
 
 <body>
 
-<img src="Enki.jpg">
+<div class="overlay"></div>
 
-<h1>Enkii Cyber</h1>
+<div class="card">
 
-<p>SAYA BUKA ORANG JAHAT,SAYA ADALAH BUKTI
-SEBERAPA JAUH INDONESIA BERUBAH </p>
+<img src="Enki.jpg" class="profile">
 
-<audio controls autoplay loop>
+<h1>./Enki_12</h1>
+
+<p class="typing"></p>
+
+<div id="playmsg">
+👆 Tap dimana saja untuk memulai musik
+</div>
+
+</div>
+
+<audio id="musik" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+
+const musik = document.getElementById("musik");
+
+document.addEventListener("click", function(){
+
+musik.play();
+
+document.getElementById("playmsg").innerHTML =
+"🎵 Music Playing";
+
+},{once:true});
+
+const text = [
+"ACCESS GRANTED...",
+"WELCOME TO ENKII CYBER",
+"SYSTEM ONLINE",
+"PURPLE NEON MODE",
+"ENJOY YOUR VISIT"
+];
+
+let line = 0;
+let char = 0;
+
+function typeWriter(){
+
+const target =
+document.querySelector(".typing");
+
+if(char < text[line].length){
+
+target.innerHTML += text[line].charAt(char);
+
+char++;
+
+setTimeout(typeWriter,100);
+
+}else{
+
+setTimeout(()=>{
+
+target.innerHTML="";
+
+line=(line+1)%text.length;
+
+char=0;
+
+typeWriter();
+
+},2000);
+
+}
+
+}
+
+typeWriter();
+
+</script>
 
 </body>
 </html>
